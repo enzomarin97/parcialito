@@ -1,0 +1,71 @@
+<%= form_with(model: recipe) do |form| %>
+  <% if recipe.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
+
+      <ul>
+        <% recipe.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_field :description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :featured %>
+    <%= form.check_box :featured %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ingredients %>
+    <%= form.text_area :ingredients %>
+  </div>
+
+  <div class="field">
+    <%= form.label :steps %>
+    <%= form.text_area :steps %>
+  </div>
+
+  <div class="field">
+    <%= form.label :submit_date %>
+    <%= form.datetime_select :submit_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :image_url %>
+    <%= form.text_field :image_url %>
+  </div>
+
+  <!-- 4) cuando se carga una receta se pueda seleccionar TIPO, CATEGORIA, AUTOR -->
+  <div class="field">
+    <%= form.label :recipe_type_id %>
+    <! -- para el despliegue el tipo de recetas -->
+    <%= form.collection_select(:recipe_type_id, RecipeType.all, :id, :name) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :category_id %>
+    <! -- para el despliegue la eleccion de categoria -->
+    <%= form.collection_select(:category_id, Category.all, :id, :name) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :author_id %>
+    <! -- para el despliegue la eleccion de autor -->
+    <%= form.collection_select(:author_id, Author.all, :id, :name) %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
